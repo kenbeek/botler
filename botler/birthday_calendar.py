@@ -19,7 +19,7 @@ def read_birthday_calendar():
 def birthday_is_today(calendar):
     """Filters the people whose birthday is today out of the calendar
 
-    Args:
+    Arg
         calendar (dictionary): dictionary of people and their birthdays
 
     Returns:
@@ -27,16 +27,17 @@ def birthday_is_today(calendar):
     """
     jolly_good_fellows = []
     today = date.today()
-    for key in c.keys():
-        birthday = datetime.datetime.strptime(c[key]["birthday"], "%d-%m-%Y")
+    for key in calendar.keys():
+        birthday = datetime.datetime.strptime(calendar[key]["birthday"], "%d-%m-%Y")
         if birthday.day == today.day and birthday.month == today.month:
             print(key)
             jolly_good_fellow = {
                 "name": key,
                 "age": today.year - birthday.year,
+                "primary_contact": calendar[key]["primary_contact"],
             }
             if c[key]["nickname"] != "None":
-                jolly_good_fellow["nickname"] = c[key]["nickname"]
+                jolly_good_fellow["nickname"] = calendar[key]["nickname"]
             jolly_good_fellows = jolly_good_fellows + [jolly_good_fellow]
 
     return jolly_good_fellows
