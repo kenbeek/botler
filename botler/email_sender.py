@@ -9,7 +9,9 @@ from email.mime.text import MIMEText
 
 from dotenv import load_dotenv
 
-from birthday_calendar import birthday_is_today, read_birthday_calendar
+from botler.birthday_calendar import birthday_is_today
+from botler.utils import read_json_data_files
+from botler.paths import calendar_path, job_path
 
 
 def load_environment_variables():
@@ -32,7 +34,7 @@ def load_environment_variables():
 
 def compose_birthday_message():
     # read in the birthday calendar
-    calendar = read_birthday_calendar()
+    calendar = read_json_data_files(calendar_path)
     # get the people whose birthday is today
     # jgfs = jolly good fellows
     jgfs = birthday_is_today(calendar)
