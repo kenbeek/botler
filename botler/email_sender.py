@@ -48,7 +48,7 @@ def compose_birthday_message():
         # combine name and nickname (if it exists) into a handle
         handle = get_handle(jgf)
         # turn age into correct ordinal
-        age_ordinal = str(jgf['age']) + get_number_suffix(jgf['age'])
+        age_ordinal = str(jgf["age"]) + get_number_suffix(jgf["age"])
 
         # enter the name into the subject
         subject = f"Birthday reminder: {jgf['name']}"
@@ -61,7 +61,7 @@ Don't forget it's {handle}'s {age_ordinal} birthday today.
         """
     elif len(jgfs) > 1:
         # Add names to subject
-        names = ", ".join([jgf['name'] for jgf in jgfs])
+        names = ", ".join([jgf["name"] for jgf in jgfs])
         subject = f"Birthday reminders: {names}"
         # Create a base message
         text = f"""
@@ -75,11 +75,8 @@ These people have a birthday today:
             # combine name and nickname (if it exists) into a handle
             handle = get_handle(jgf)
             # turn age into correct ordinal
-            age_ordinal = str(jgf['age']) + get_number_suffix(jgf['age'])
-            message = (
-                message
-                + f"""{handle}'s' {age_ordinal} birthday) \n"""
-            )
+            age_ordinal = str(jgf["age"]) + get_number_suffix(jgf["age"])
+            message = message + f"""{handle}'s' {age_ordinal} birthday) \n"""
 
     else:
         # valueerror if none of the above apply
@@ -120,6 +117,7 @@ def send_email(message, number_of_birthdays):
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message.as_string())
 
+
 def get_number_suffix(number):
     """returns the correct suffix to turn a number into an ordinal
 
@@ -132,16 +130,17 @@ def get_number_suffix(number):
         return "st"
     elif number % 10 == 2:
         return "nd"
-    elif number % == 3:
+    elif number % 10 == 3:
         return "rd"
     else:
         return "th"
 
+
 def get_handle(jgf):
     if "nickname" in jgf.keys():
-        handle = jgf['name'] + ' (' + jgf['nickname'] + ')'
+        handle = jgf["name"] + " (" + jgf["nickname"] + ")"
     else:
-        handle = jgf['name']
+        handle = jgf["name"]
     return handle
 
 
