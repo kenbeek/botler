@@ -1,17 +1,7 @@
 import json
+from botler.utils import read_json_data_files
 
 budget = 29
-
-
-def read_joblist(path="data/handymans_joblist.json"):
-    """Reads in the data from handymans_joblist.json and returns a
-    dictionary with the jobs, the costs and the preperation effort
-
-    Returns: Dictionary : The complete joblists
-    """
-    with open(path, "r+") as f:
-        joblist = json.load(f)
-    return joblist
 
 
 # read the budget
@@ -86,7 +76,7 @@ def job_dreamer(joblist, budget):
 
 if __name__ == "__main__":
     # execute functions
-    c = read_joblist()
+    c = read_json_data_files(path="data/handymans_joblist.json")
     d = job_picker(c, budget)
     e = job_dreamer(c, budget)
     print(d)
