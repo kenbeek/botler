@@ -1,19 +1,8 @@
 import datetime
 import json
 from datetime import date
-
-
-## database
-# read function
-def read_birthday_calendar(path="data/birthday_calendar.json"):
-    """Reads in the data from birthday_calendar.json and returns a
-    dictionary with people and their birthdays
-
-    Returns: Dictionary : The complete birthday calendar
-    """
-    with open(path, "r+") as f:
-        calendar = json.load(f)
-    return calendar
+from botler.utils import read_json_data_files
+from botler.paths import calendar_path
 
 
 def birthday_is_today(calendar):
@@ -62,6 +51,6 @@ def birthday_is_today(calendar):
 
 if __name__ == "__main__":
     # execute functions
-    c = read_birthday_calendar()
+    c = read_json_data_files(path=calendar_path)
     b = birthday_is_today(c)
     print(b)
