@@ -2,6 +2,7 @@ import datetime
 import json
 from datetime import date
 from botler.utils import read_json_data_files
+from botler.paths import calendar_path
 
 
 def birthday_is_today(calendar):
@@ -50,6 +51,6 @@ def birthday_is_today(calendar):
 
 if __name__ == "__main__":
     # execute functions
-    c = read_json_data_files(path="data/birthday_calendar.json")
+    c = read_json_data_files(path=calendar_path)
     b = birthday_is_today(c)
     print(b)
