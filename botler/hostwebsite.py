@@ -1,5 +1,5 @@
 # import the class Flask from the flask package
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 # import the birthdays
 from birthday_calendar import birthday_is_today, read_birthday_calendar
@@ -31,6 +31,32 @@ def make_a_message():
     dream_jobs = " ".join([str(elem) for elem in e])
     message = birthdays + "\n" + jobs + "\n" + dream_jobs
     return message
+
+
+@app.route("/hello")
+def hello():
+    a = read_birthday_calendar()
+    birthday_list = birthday_is_today(a)
+    if not birthday_list:
+        birthdays = "no birthdays today"
+    else:
+        # convert the list into a string
+        birthdays = " ".join([str(elem) for elem in birthday_list])
+    c = read_joblist()
+    d = job_picker(c, budget)
+    if not d:
+        jobs = "There's a time to spent money and a time to save money, now is the time to save \n"
+    else:
+        jobs = " ".join([str(elem) for elem in d])
+    e = job_dreamer(c, budget)
+    dream_jobs = " ".join([str(elem) for elem in e])
+    name = birthdays + "\n" + jobs + "\n" + dream_jobs
+    return render_template(
+        "hello.html",
+        dreamjobs=dream_jobs,
+        jobs=jobs,
+        birthdays=birthdays,
+    )
 
 
 # This if condition is equivalent to the main() function.
