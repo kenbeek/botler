@@ -45,18 +45,24 @@ def compose_birthday_message():
         # jgfs is in the form of a list. Take the first (and only)
         # element of the list.
         jgf = jgfs[0]
+        # combine name and nickname (if it exists) into a handle
+        handle = get_handle(jgf)
+        # turn age into correct ordinal
+        age_ordinal = str(jgf['age']) + get_number_suffix(jgf['age'])
+
         # enter the name into the subject
         subject = f"Birthday reminder: {jgf['name']}"
         # enter the name, nickname and age into the message
         text = f"""
 Hi,
 
-Don't forget it's {jgf['name']}\'s {('(' + jgf['nickname'] + ') ' ) if ('nickname' in jgf.keys()) else ""}{jgf['age']}\'s birthday today.
+Don't forget it's {handle}'s {age_ordinal} birthday today.
 
         """
     elif len(jgfs) > 1:
         # Add names to subject
-        subject = f"Birthday reminders: {[jgf['name'] for jgf in jgfs]}"
+        names = ", ".join([jgf['name'] for jgf in jgfs])
+        subject = f"Birthday reminders: {names}"
         # Create a base message
         text = f"""
 Hi,
@@ -66,9 +72,13 @@ These people have a birthday today:
 """
         # Add the jolly good fellows to the message
         for jgf in jgfs:
+            # combine name and nickname (if it exists) into a handle
+            handle = get_handle(jgf)
+            # turn age into correct ordinal
+            age_ordinal = str(jgf['age']) + get_number_suffix(jgf['age'])
             message = (
                 message
-                + f"""{jgf['name']} {('(' + jgf['nickname'] + ') ' ) if ('nickname' in jgf.keys()) else ""} ({jgf['age']} years old) \n"""
+                + f"""{handle}'s' {age_ordinal} birthday) \n"""
             )
 
     else:
@@ -109,6 +119,30 @@ def send_email(message, number_of_birthdays):
         with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message.as_string())
+
+def get_number_suffix(number):
+    """returns the correct suffix to turn a number into an ordinal
+
+    Args:
+        number (int): a number
+
+    Returns: string : the ordinal suffix
+    """
+    if number % 10 == 1:
+        return "st"
+    elif number % 10 == 2:
+        return "nd"
+    elif number % == 3:
+        return "rd"
+    else:
+        return "th"
+
+def get_handle(jgf):
+    if "nickname" in jgf.keys():
+        handle = jgf['name'] + ' (' + jgf['nickname'] + ')'
+    else:
+        handle = jgf['name']
+    return handle
 
 
 if __name__ == "__main__":
