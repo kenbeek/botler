@@ -1,5 +1,5 @@
 import json
-from botler.utils import read_json_data_files
+from utils import read_json_data_files
 
 budget = 29
 

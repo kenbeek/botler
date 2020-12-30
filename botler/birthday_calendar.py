@@ -1,8 +1,8 @@
 import datetime
 import json
 from datetime import date
-from botler.utils import read_json_data_files
-from botler.paths import calendar_path
+from utils import read_json_data_files
+from paths import calendar_path
 
 
 def birthday_is_today(calendar):
