@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request
 
-from botler.birthday_calendar import birthday_is_today
-from botler.job_list import budget, job_picker, read_joblist
-from botler.utils import read_json_data_files
-from botler.paths import calendar_path, job_path
+from birthday_calendar import birthday_is_today
+from job_list import budget, job_picker
+from utils import read_json_data_files
+from paths import calendar_path, job_path
 
 # create a Flask object: a web application
 app = Flask(__name__)
