@@ -4,6 +4,7 @@ from birthday_calendar import birthday_is_today
 from job_list import budget, job_picker
 from utils import read_json_data_files
 from paths import calendar_path, job_path
+from guest_list import loadgoogledata, making_a_guestlist, toomuchdays
 
 # create a Flask object: a web application
 app = Flask(__name__)
@@ -40,20 +41,28 @@ def hello():
     else:
         # convert the list into a string
         birthdays = " ".join([str(elem) for elem in birthday_list])
+    # read the joblist
     c = read_json_data_files(job_path)
+    # See if there are afforable jobs
     d = job_picker(c, budget, "affordable")
     if not d:
         jobs = "There's a time to spent money and a time to save money, now is the time to save \n"
     else:
         jobs = " ".join([str(elem) for elem in d])
+    # if the budget is almost afoordable, pick a dreamjob
     e = job_picker(c, budget, "almost")
     dream_jobs = " ".join([str(elem) for elem in e])
-    name = birthdays + "\n" + jobs + "\n" + dream_jobs
+
+    # adding guests to the list
+    loadguests = loadgoogledata()
+    guests = making_a_guestlist(loadguests, toomuchdays)
+
     return render_template(
         "hello.html",
         dreamjobs=dream_jobs,
         jobs=jobs,
         birthdays=birthdays,
+        guests=guests,
     )
 
 
