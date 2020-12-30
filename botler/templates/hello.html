@@ -1,15 +1,32 @@
 <!doctype html>
 <title>Hello from Flask</title>
 
-<div>
-  <h1>Vandaag is jarig!</h1>
-  <p>{{ birthdays }}</p>
-  <br>
-  <br>
-  <h1>Klusjes lijst:</h1>
-  <p><i>Klusjes waaraan we meteen kunnen beginnen</i></p>
-  <p>{{ jobs }}</p>
-  <br>
-  <p><i>Klusjes waarvoor we nog eventjes door moeten sparen</i></p>
-  <p>{{ dreamjobs }}</p>
-</div>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Lora:400i,700i|Roboto:300,400,700,900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <div class="gallery-container">
+  </div>
+  <div class="block" id="color1">
+    <h1>Vandaag is jarig!</h1>
+    <p>{{ birthdays }}</p>
+    <br>
+    <br>
+  </div>
+  <div class="block" id="color4">
+    <h1>Klusjes lijst:</h1>
+    <p><i>Klusjes waaraan we meteen kunnen beginnen</i></p>
+    <p>{{ jobs }}</p>
+    <br>
+    <p><i>Klusjes waarvoor we nog eventjes door moeten sparen</i></p>
+    <p>{{ dreamjobs }}</p>
+  </div>
+  <div class="block footnote" id="color2">
+    <p>@Thomas en Trudie 2020</p>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
