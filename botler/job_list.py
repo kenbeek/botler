@@ -1,5 +1,6 @@
 import json
-from utils import read_json_data_files
+from utils import read_json_data_files, read_csv_data_files
+from paths import job_path
 
 budget = 29
 
@@ -18,9 +19,10 @@ def job_picker(joblist, budget, mode):
     """Search the joblist to find which jobs are doable budjet wise
 
     Args:
-        joblist (dictionary): A dictionary of all the possible jobs
+        joblist (pandas): A table of all the possible jobs
             including their costs and preperation time
         budget (integer): The amount of money saved for jobs
+        mode : discribing if we are looking for projects with costs within the budget or almost within the budget
 
     Returns:
         list : List of jobs which are doable
@@ -28,33 +30,45 @@ def job_picker(joblist, budget, mode):
                 preperation effort
                 costs
     """
-    # create an empthy lists with the jobs
-    possible_jobs = []
-    # iterate through the joblist
-    for key in joblist.keys():
-        jobcost = joblist[key]["costs"]
-        # change the filter depending on whether we are looking for
-        # affordable jobs or almost affordable jobs
-        if mode == "affordable":
-            filter = jobcost <= budget
-        elif mode == "almost":
-            filter = jobcost > budget and jobcost < budget + 50
-        else:
-            raise ValueError("mode must be affordable or almost")
-        if filter:
-            possible_job = {
-                "name": key,
-                "preperation_effort": joblist[key]["preperationeffort"],
-                "cost": jobcost,
-            }
-            # add them to the list
-            possible_jobs = possible_jobs + [possible_job]
+
+    # if modus is affordable
+    if mode == "affordable":
+        possible_jobs = joblist[joblist["costs"] <= budget]
+    # if modus is almost
+    elif mode == "almost":
+        possible_jobs = joblist[joblist["costs"] >= budget][
+            joblist["costs"] < budget + 50
+        ]
+    else:
+        raise ValueError("mode must be affordable or almost")
+
+    # # create an empthy lists with the jobs
+    # possible_jobs = []
+    # # iterate through the joblist
+    # for key in joblist.keys():
+    #     jobcost = joblist[key]["costs"]
+    #     # change the filter depending on whether we are looking for
+    #     # affordable jobs or almost affordable jobs
+    #     if mode == "affordable":
+    #         filter = jobcost <= budget
+    #     elif mode == "almost":
+    #         filter = jobcost > budget and jobcost < budget + 50
+    #     else:
+    #         raise ValueError("mode must be affordable or almost")
+    #     if filter:
+    #         possible_job = {
+    #             "name": key,
+    #             "preperation_effort": joblist[key]["preperationeffort"],
+    #             "cost": jobcost,
+    #         }
+    #         # add them to the list
+    #         possible_jobs = possible_jobs + [possible_job]
     return possible_jobs
 
 
 if __name__ == "__main__":
     # execute functions
-    c = read_json_data_files(path=job_path)
+    c = read_csv_data_files(path=job_path)
     d = job_picker(c, budget, "affordable")
     e = job_picker(c, budget, "almost")
     print(d)
