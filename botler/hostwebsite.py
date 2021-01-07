@@ -48,17 +48,6 @@ def hello():
     else:
         # convert the list into a string
         birthdays = birthday_frame
-
-    # print(f'[birthdays.to_html(classes="data")]: {[birthdays.to_html(classes="data")]}')
-    # print(f"birthdays.columns.values: {birthdays.columns.values}")
-    # a = read_json_data_files(calendar_path)
-    # birthday_list = birthday_is_today(a)
-    # if not birthday_list:
-    #     birthdays = "no birthdays today"
-    # else:
-    #     # convert the list into a string
-    #     birthdays = " ".join([str(elem) for elem in birthday_list])
-    # read the joblist
     complete_joblist = read_csv_data_files(job_path)
     # See if there are afforable jobs
     affordable_joblist = job_picker(complete_joblist, budget, "affordable")

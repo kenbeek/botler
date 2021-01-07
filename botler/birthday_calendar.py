@@ -27,26 +27,6 @@ def birthday_is_today(calendar):
     ]
     jolly_good_fellows["age"] = today.year - jolly_good_fellows["birthday"].dt.year
     jolly_good_fellows = jolly_good_fellows[["name", "birthday", "nickname", "age"]]
-
-    # jolly_good_fellows = []
-    # today = date.today()
-    # # check every contact if their birthday is today
-    # for key in calendar.keys():
-    #     birthday = datetime.datetime.strptime(calendar[key]["birthday"], "%d-%m-%Y")
-    #     if birthday.day == today.day and birthday.month == today.month:
-    #         # if a contact's birthday is today, record the relevant information
-    #         jolly_good_fellow = {
-    #             "name": key,
-    #             "age": today.year - birthday.year,
-    #             "primary_contact": calendar[key]["primary_contact"],
-    #         }
-    #         # If there is a nickname, add it to the list
-    #         if calendar[key]["nickname"] != "None":
-
-    #             jolly_good_fellow["nickname"] = calendar[key]["nickname"]
-    #         # add them to the list
-    #         jolly_good_fellows = jolly_good_fellows + [jolly_good_fellow]
-
     return jolly_good_fellows
 
 

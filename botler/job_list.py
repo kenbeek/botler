@@ -41,28 +41,6 @@ def job_picker(joblist, budget, mode):
         ]
     else:
         raise ValueError("mode must be affordable or almost")
-
-    # # create an empthy lists with the jobs
-    # possible_jobs = []
-    # # iterate through the joblist
-    # for key in joblist.keys():
-    #     jobcost = joblist[key]["costs"]
-    #     # change the filter depending on whether we are looking for
-    #     # affordable jobs or almost affordable jobs
-    #     if mode == "affordable":
-    #         filter = jobcost <= budget
-    #     elif mode == "almost":
-    #         filter = jobcost > budget and jobcost < budget + 50
-    #     else:
-    #         raise ValueError("mode must be affordable or almost")
-    #     if filter:
-    #         possible_job = {
-    #             "name": key,
-    #             "preperation_effort": joblist[key]["preperationeffort"],
-    #             "cost": jobcost,
-    #         }
-    #         # add them to the list
-    #         possible_jobs = possible_jobs + [possible_job]
     return possible_jobs
 
 
