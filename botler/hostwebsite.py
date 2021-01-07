@@ -20,18 +20,6 @@ def make_a_message():
 
         No_one = {"No": [], "birthday": [], "today": []}
         birthdays = pd.DataFrame(No_one)
-    # else:
-    #     # convert the list into a string
-    #     birthdays = birthday_frame
-    # c = read_json_data_files(job_path)
-    # d = job_picker(c, budget, "affordable")
-    # if not d:
-    #     jobs = "There's a time to spent money and a time to save money, now is the time to save \n"
-    # else:
-    #     jobs = " ".join([str(elem) for elem in d])
-    # e = job_picker(c, budget, "almost")
-    # dream_jobs = " ".join([str(elem) for elem in e])
-    # message = birthdays + "\n" + jobs + "\n" + dream_jobs
     return birthdays
 
 
