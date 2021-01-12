@@ -1,71 +1,38 @@
-from utils import read_json_data_files, loaddatafromspreadsheet
+from utils import read_csv_data_files
+from paths import guest_list_path
 from datetime import date, datetime, timedelta
 
 # Threshold for how many days should have past before adding someone to the contactlist
 toomuchdays = 500
 
 
-def loadgoogledata():
-    """This function load the data from a google spreadsheet
-    Returns:
-        a List: Containing the data loaded from the google doc sheet.
-    """
-    # the key of the googleguestlist file
-    key = "1afaA80jq-x1098R0svhcUiMpAykcPqWnUy0tcRFhrG0"
-    # use the function in utils to load data
-    mydata = loaddatafromspreadsheet(key)
-    return mydata
-
-
 def making_a_guestlist(mydata, toomuchdays):
     """Makes a guestlist with friends and family that we need to call ordered by priority
 
     Args:
-        mydata (list): containing all our the friends and relative
+        mydata (pandas): containing all our the friends and relative
         toomuchdays (int): the amount of days before friends anr relatives appear on the list
 
     Returns:
-        dictionary: An dictoriary with relatives and friend that we need to reach inclucinding their name and priamry contact
+        pandas: A panda with relatives and friend that we need to reach inclucinding their name and priamry contact
     """
-    # the inviationdictionairy which we are going to make
-    guests_list = []
-
-    # For each item in mydata
-    key = 0
-    while key < len(mydata):
-        # see how many days have passed since the last day
-        last_date = mydata[key]["last_day_seen"]
-        days_passed = countingdays(last_date)
-        # when there have been passed toomuchdays add the person the the invitation dictionary
-        if days_passed > toomuchdays:
-            guest = {
-                "name": mydata[key]["name"],
-                "primary_contact": mydata[key]["primary_contact"],
-                "rank": days_passed * mydata[key]["priority"],
-                "dayspassed": days_passed,
-                "priority": mydata[key]["priority"],
-            }
-            # add them to the dictionary
-            guests_list = guests_list + [guest]
-        key = key + 1
-    # order the list by rank
-    guests_list.sort(reverse=True, key=sortingout)
-    # print(guests_list)
-
-    # delete the information in the dictionary about the rank, priority and the days that have been passed
-    del_key = 0
-    for del_key in range(len(guests_list)):
-        del guests_list[del_key]["rank"]
-        del guests_list[del_key]["priority"]
-        del guests_list[del_key]["dayspassed"]
+    # Make a new colum including the amount of days passed since we last invited the friend
+    mydata.insert(len(mydata.columns), "days_passed", "")
+    mydata["days_passed"] = mydata["last_day_seen"].apply(lambda x: countingdays(x))
+    # Filter out the friends that we have recently seen
+    filtered_mydata = mydata[mydata["days_passed"] >= toomuchdays]
+    # Add a colum with the calculated rank of the friend based on the last day seen and the priority
+    filtered_mydata.insert(len(filtered_mydata.columns), "rank", "")
+    filtered_mydata["rank"] = (
+        filtered_mydata["days_passed"] * filtered_mydata["priority"]
+    )
+    # Sort the guest_listbased on the priority
+    guests_list = filtered_mydata.sort_values(by=["rank"], ascending=False)
+    # Remove the priority, rank, last day seen and days passed from the list
+    guests_list = guests_list.drop(
+        columns=["rank", "priority", "last_day_seen", "days_passed"]
+    )
     return guests_list
-
-
-def sortingout(e):
-    """
-    To be honest I do not know exactly why this is here, but it works ;)
-    """
-    return e["rank"]
 
 
 def countingdays(d0):
@@ -88,7 +55,7 @@ def countingdays(d0):
 
 
 if __name__ == "__main__":
-    a = loadgoogledata()
+    a = read_csv_data_files(guest_list_path)
     b = making_a_guestlist(a, toomuchdays)
     print("an ordered list of relatives to be invited")
     print(b)
