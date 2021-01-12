@@ -31,3 +31,22 @@ def loaddatafromspreadsheet(key_googledocsheet):
     # Saves the data in a list
     mydata = gsheet.sheet1.get_all_records()
     return mydata
+
+
+def shell_response(command: str, json=True):
+    """Submits a shell command and returns the output
+
+    Args:
+        command (str): shell command
+
+    Returns:
+        json or string: response of the shell command
+    """
+    # open a shell stream
+    stream = os.popen(command)
+    # read the response
+    output = stream.read()
+    # if the json parameter is set to true, return a dictionary
+    if json:
+        output = json.loads(output)
+    return output
