@@ -1,7 +1,7 @@
 import datetime
 import json
 from datetime import date
-from utils import read_json_data_files
+from utils import read_csv_data_calendar
 from paths import calendar_path
 
 
@@ -20,25 +20,13 @@ def birthday_is_today(calendar):
                 nickname (may be empty)
     """
     # create an empty list of jolly good fellows
-    jolly_good_fellows = []
+
     today = date.today()
-    # check every contact if their birthday is today
-    for key in calendar.keys():
-        birthday = datetime.datetime.strptime(calendar[key]["birthday"], "%d-%m-%Y")
-        if birthday.day == today.day and birthday.month == today.month:
-            # if a contact's birthday is today, record the relevant information
-            jolly_good_fellow = {
-                "name": key,
-                "age": today.year - birthday.year,
-                "primary_contact": calendar[key]["primary_contact"],
-            }
-            # If there is a nickname, add it to the list
-            if calendar[key]["nickname"] != "None":
-
-                jolly_good_fellow["nickname"] = calendar[key]["nickname"]
-            # add them to the list
-            jolly_good_fellows = jolly_good_fellows + [jolly_good_fellow]
-
+    jolly_good_fellows = calendar[calendar["birthday"].dt.month == today.month][
+        calendar["birthday"].dt.day == today.day
+    ]
+    jolly_good_fellows["age"] = today.year - jolly_good_fellows["birthday"].dt.year
+    jolly_good_fellows = jolly_good_fellows[["name", "birthday", "nickname", "age"]]
     return jolly_good_fellows
 
 
@@ -51,6 +39,6 @@ def birthday_is_today(calendar):
 
 if __name__ == "__main__":
     # execute functions
-    c = read_json_data_files(path=calendar_path)
+    c = read_csv_data_calendar(path=calendar_path)
     b = birthday_is_today(c)
     print(b)
