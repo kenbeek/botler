@@ -17,7 +17,8 @@ from paths import calendar_path, job_path
 def load_environment_variables():
     """load variables from .env file and store them in global
     variables"""
-    load_dotenv(".env")
+    dotenv_location = find_dotenv()
+    load_dotenv(dotenv_location)
     # port for SMTP
     global port
     port = 465
@@ -30,6 +31,9 @@ def load_environment_variables():
     # password for sender email address
     global password
     password = os.getenv("PASSWORD")
+    # ynab API key
+    global ynab_key
+    ynab_key = os.getenv('YNAB_KEY')
 
 
 def compose_birthday_message():
