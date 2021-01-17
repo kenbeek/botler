@@ -51,13 +51,13 @@ text-decoration: none;
 }
 
 .gallery-container{
-    width: 70%;
-    height: 250px;
-    margin: auto;
-    margin-bottom: 0rem;  
-    overflow: hidden;
-    }
-    
+width: 70%;
+height: 250px;
+margin: auto;
+margin-bottom: 0rem;  
+overflow: hidden;
+}
+
 .gallery-image{
     object-fit: cover;
 }
@@ -107,27 +107,42 @@ text-decoration: none;
     margin-left: 1%;
 }
 
+.block3{
+    background-color: rgb(76, 122, 161);
+    width: 28.5%; 
+    margin-top: 0mm;
+    margin-right: 0mm;
+    padding: 1.74%;         
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+    }
+
+.block23{
+    background-color: rgb(76, 122, 161);
+    width: 62.5%; 
+    margin-top: 0mm;
+    margin-right: 0mm;
+    padding: 1.74%;         
+    overflow: hidden;
+    display: inline-block;
+    }
+
+.block4{
+background-color: rgb(76, 122, 161);
+width: 20%; 
+margin-top: 0mm;
+margin-right: 0mm;
+padding: 1.74%;
+overflow: hidden;
+display: inline-block;
+vertical-align: top;
+height: auto;
+}
+
 .righttspace{
 margin-right: 0%;
 /* 1.6 */
-}
-
-.lastrowmargin{
-margin-bottom: 1%;
-width: 50%;
-margin: auto;
-margin-bottom: 0rem;  
-overflow: hidden;
-object-fit: contain;
-}
-
-.block{
-background-color: rgb(76, 122, 161);
-width: 44%; 
-margin: auto;
-margin-top: 0mm;
-padding: 3%;
-overflow: hidden;
 }
 
 .footnote{
@@ -146,7 +161,7 @@ overflow: hidden;
 }
 
 .color3{
-    background-color: rgb(247, 86, 124)
+    background-color: rgb(247, 86, 124);
     color: rgb(58, 58, 58);
 }
 
