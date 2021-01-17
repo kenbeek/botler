@@ -8,6 +8,8 @@
 </head>
 
 <body>
+
+
   <div class="gallery-container">
     <!-- in deze div verschijnt de afbeelding geladen door het js script -->
   </div>
@@ -76,6 +78,37 @@
     </div>
   </div>
   <div class="wrapper footnote color3">
+=======
+  <div class="block color1" id="birthdayblock">
+    <h1>Vandaag is jarig!</h1>
+    <br>
+    <p> {% for table in table_bday %}
+      {{ table|safe }}
+      {% endfor %}
+    </p>
+    <br>
+    <br>
+  </div>
+  <div class="block color2">
+    <h1>Klusjes lijst:</h1>
+    <p><i>Klusjes waaraan we meteen kunnen beginnen</i></p>
+    {% for table in table_jobs %}
+    {{ table|safe }}
+    {% endfor %}
+    <br>
+    <p><i>Klusjes waarvoor we nog eventjes door moeten sparen</i></p>
+    {% for table in table_drjobs %}
+    {{ table|safe }}
+    {% endfor %}
+  </div>
+  <div class="block color4">
+    <h1>uitnodigingslijst:</h1>
+    <p><i>Mensen waarmee we contact mee moeten opnemen:</i></p>
+    {% for table in table_guests %}
+    {{ table|safe }}
+    {% endfor %}
+  </div>
+  <div class="block footnote color3">
     <p>@Thomas en Trudie 2020</p>
   </div>
 

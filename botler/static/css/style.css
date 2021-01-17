@@ -113,7 +113,21 @@ margin-right: 0%;
 }
 
 .lastrowmargin{
-    margin-bottom: 1%;
+margin-bottom: 1%;
+width: 50%;
+margin: auto;
+margin-bottom: 0rem;  
+overflow: hidden;
+object-fit: contain;
+}
+
+.block{
+background-color: rgb(76, 122, 161);
+width: 44%; 
+margin: auto;
+margin-top: 0mm;
+padding: 3%;
+overflow: hidden;
 }
 
 .footnote{
@@ -132,7 +146,7 @@ margin-right: 0%;
 }
 
 .color3{
-    background-color: rgb(247, 183, 86);
+    background-color: rgb(247, 86, 124)
     color: rgb(58, 58, 58);
 }
 
